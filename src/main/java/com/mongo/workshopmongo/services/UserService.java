@@ -7,6 +7,7 @@ import com.mongo.workshopmongo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,6 +31,10 @@ public class UserService {
 
     public User insert(User user) {
         return repository.insert(user);
+    }
+
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 
     public User fromDTO(UserDTO userDTO) {
