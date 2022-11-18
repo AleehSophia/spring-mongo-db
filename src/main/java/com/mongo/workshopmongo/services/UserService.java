@@ -5,11 +5,7 @@ import com.mongo.workshopmongo.dto.UserDTO;
 import com.mongo.workshopmongo.repositories.UserRepository;
 import com.mongo.workshopmongo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +31,17 @@ public class UserService {
 
     public void delete(String id) {
         repository.deleteById(id);
+    }
+
+    public User update(User user) {
+        User newUser = findById(user.getId());
+        updateData(newUser, user);
+        return repository.save(newUser);
+    }
+
+    private void updateData(User newUser, User user) {
+        newUser.setName(user.getName());
+        newUser.setEmail(user.getEmail());
     }
 
     public User fromDTO(UserDTO userDTO) {
